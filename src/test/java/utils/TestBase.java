@@ -1,9 +1,10 @@
+package utils;
+
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 import org.junit.After;
 import org.junit.Before;
 
-import java.net.MalformedURLException;
 import java.util.concurrent.TimeUnit;
 
 public class TestBase {
@@ -11,13 +12,15 @@ public class TestBase {
     protected WebDriver driver;
 
     @Before
-    public void setup() throws MalformedURLException {
+    public void setup() {
 
         boolean headless = Boolean.parseBoolean(
                 ConfigReader.get("headless")
         );
 
         driver = DriverFactory.createDriver("chrome", headless);
+
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
         driver.get(ConfigReader.get("baseUrl"));
 
