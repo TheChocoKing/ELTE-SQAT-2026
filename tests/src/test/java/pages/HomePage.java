@@ -8,6 +8,8 @@ public class HomePage extends PageBase {
 
     private final By bodyLocator = By.tagName("body");
     private final By searchLocator = By.xpath("//form[@id='Qsearch']//input[@type='text']");
+    private final By loginButton = By.xpath("//ul[@id='UserLinks']//a[@href='login.php']");
+
 
     public HomePage(WebDriver driver) {
         super(driver);
@@ -17,6 +19,11 @@ public class HomePage extends PageBase {
         this.waitAndReturnElement(searchLocator).click();
         this.waitAndReturnElement(searchLocator).sendKeys(searchQuery, Keys.ENTER);
         return new ResultPage(this.driver);
+    }
+
+    public LoginPage openLoginPage() {
+        this.waitAndReturnElement(loginButton).click();
+        return new LoginPage(this.driver);
     }
 
 }
