@@ -2,6 +2,7 @@ package utils;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.net.MalformedURLException;
@@ -25,6 +26,10 @@ public class DriverFactory  {
             }
 
             return new RemoteWebDriver(new URL("http://selenium:4444/wd/hub"), options);
+        }
+
+        if (browser.equalsIgnoreCase("firefox")) {
+            return new RemoteWebDriver(new URL("http://selenium:4444/wd/hub"), DesiredCapabilities.firefox());
         }
 
         throw new IllegalArgumentException(
