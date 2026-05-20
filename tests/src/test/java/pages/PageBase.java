@@ -1,5 +1,6 @@
-package utils;
+package pages;
 
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -12,6 +13,7 @@ public class PageBase {
     protected WebDriver driver;
     protected WebDriverWait wait;
 
+    private final By acceptCookieLocator = By.xpath("/html/body/div[2]/div[2]/div[2]/div[2]/div[2]/button[1]");
 
     public PageBase(WebDriver driver) {
         this.driver = driver;
@@ -32,6 +34,15 @@ public class PageBase {
         wait.until(ExpectedConditions.visibilityOf(element));
         element.clear();
         element.sendKeys(text);
+    }
+
+    public void handleCookiePopup() {
+        try {
+            WebElement acceptBtn = wait.until(ExpectedConditions.elementToBeClickable(acceptCookieLocator));
+            acceptBtn.click();
+        } catch (TimeoutException e) {
+            // popup did not appear - ignore
+        }
     }
 
     public String getBodyText() {

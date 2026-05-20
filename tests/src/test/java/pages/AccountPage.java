@@ -3,8 +3,6 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-import utils.PageBase;
-
 public class AccountPage extends PageBase {
 
     private final By accountMenu = By.xpath(

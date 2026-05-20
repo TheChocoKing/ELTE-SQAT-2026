@@ -1,12 +1,15 @@
 package utils;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
-public class DriverFactory {
+import java.net.MalformedURLException;
+import java.net.URL;
 
-    public static WebDriver createDriver(String browser, boolean headless) {
+public class DriverFactory  {
+
+    public static WebDriver createDriver(String browser, boolean headless) throws MalformedURLException {
 
         if (browser.equalsIgnoreCase("chrome")) {
 
@@ -14,12 +17,14 @@ public class DriverFactory {
 
             options.addArguments("--start-maximized");
             options.addArguments("--disable-notifications");
+            //options.addArguments("--no-sandbox");
+            //options.addArguments("--disable-dev-shm-usage");
 
             if (headless) {
                 options.addArguments("--headless");
             }
 
-            return new ChromeDriver(options);
+            return new RemoteWebDriver(new URL("http://selenium:4444/wd/hub"), options);
         }
 
         throw new IllegalArgumentException(

@@ -1,18 +1,17 @@
 package utils;
 
-import org.openqa.selenium.Cookie;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 import org.junit.After;
 import org.junit.Before;
 
-import java.util.concurrent.TimeUnit;
+import java.net.MalformedURLException;
 
 public class TestBase {
 
     protected WebDriver driver;
 
     @Before
-    public void setup() {
+    public void setup() throws MalformedURLException {
 
         boolean headless = Boolean.parseBoolean(
                 ConfigReader.get("headless")
@@ -20,16 +19,15 @@ public class TestBase {
 
         driver = DriverFactory.createDriver("chrome", headless);
 
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-
         driver.get(ConfigReader.get("baseUrl"));
 
         Cookie cookie = new Cookie("testCookie", "accepted");
         driver.manage().addCookie(cookie);
     }
 
+
     @After
-    public void teardown() {
+    public void close() {
         if (driver != null) {
             driver.quit();
         }
