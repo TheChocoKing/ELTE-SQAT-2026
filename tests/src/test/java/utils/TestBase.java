@@ -17,7 +17,7 @@ public class TestBase {
                 ConfigReader.get("headless")
         );
 
-        driver = DriverFactory.createDriver("chrome", headless);
+        driver = DriverFactory.createDriver(ConfigReader.get("browser"), headless);
 
         driver.get(ConfigReader.get("baseUrl"));
 

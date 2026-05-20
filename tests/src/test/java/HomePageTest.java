@@ -2,10 +2,10 @@ import org.junit.*;
 import pages.HomePage;
 import pages.LoginPage;
 import pages.ResultPage;
-import pages.SearchPage;
-import pages.VehiclePage;
 import utils.ConfigReader;
 import utils.TestBase;
+
+import java.util.UUID;
 
 
 public class HomePageTest extends TestBase {
@@ -45,6 +45,23 @@ public class HomePageTest extends TestBase {
     }
 
     @Test
+    public void testLoginWithRandomInvalidUser() {
+        HomePage homePage = new HomePage(this.driver);
+        homePage.handleCookiePopup();
+
+        String randomUsername = "invalid_user_" + UUID.randomUUID().toString();
+        String randomPassword = "invalid_password_" + UUID.randomUUID().toString();
+
+        LoginPage loginPage = homePage.openLoginPage();
+        loginPage.login(randomUsername, randomPassword);
+
+        String bodyText = homePage.getBodyText();
+        Assert.assertTrue(bodyText.contains("Login"));
+        Assert.assertTrue(bodyText.contains("This username does not exist"));
+        Assert.assertFalse(bodyText.contains("Profile"));
+    }
+
+    @Test
     public void testMultiplePages() {
         String[][] pages = {
                 {ConfigReader.get("baseUrl"), "Welcome to IMCDb.org"},
@@ -61,6 +78,24 @@ public class HomePageTest extends TestBase {
             homePage.handleCookiePopup();
             Assert.assertTrue(homePage.getBodyText().contains(page[1]));
         }
+    }
+
+    @Test
+    public void testBrowserHistoryNavigation() {
+        HomePage homePage = new HomePage(this.driver);
+        homePage.handleCookiePopup();
+
+        String homePageUrl = driver.getCurrentUrl();
+        driver.get(ConfigReader.get("baseUrl") + "search.php");
+        Assert.assertTrue(homePage.getBodyText().contains("Search for a movie or a TV series"));
+
+        driver.navigate().back();
+        Assert.assertEquals(homePageUrl, driver.getCurrentUrl());
+        Assert.assertTrue(homePage.getBodyText().contains("Welcome to IMCDb.org"));
+
+        driver.navigate().forward();
+        Assert.assertTrue(driver.getCurrentUrl().contains("search.php"));
+        Assert.assertTrue(homePage.getBodyText().contains("Search for a movie or a TV series"));
     }
 
     @Test
