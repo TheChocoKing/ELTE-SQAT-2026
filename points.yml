@@ -8,7 +8,7 @@
 # ============================================================
 
 student:
-  website_under_test: "https://www.overtake.gg/"
+  website_under_test: "https://www.imcdb.org/"
     
     
 # ----------------------------------------------------------
@@ -65,11 +65,11 @@ basic:
     description: "Log out from the application and verify it"
 
   fill_input:                # 1 pt each | repeatable | max 10
-    count: 1
+    count: 5
     description: "Fill an input field (text, radio, checkbox, date, etc.) — each different type counts as one"
 
   send_form:                 # 1 pt each | repeatable | max 10
-    count: 0
+    count: 2
     description: "Submit a form (each distinct form counts as one)"
 
   static_page_test:          # 2 pts | once
@@ -77,24 +77,24 @@ basic:
     description: "Test a static page (verify text content, element presence, etc.)"
 
   multiple_page_test:        # 3 pts | once
-    done: false
+    done: true
     description: "Define an array of URLs or page data, iterate over them and verify something on each page (e.g. check title or a specific element on 5 different pages using a loop)"
 
   complex_xpath:             # 1 pt each | repeatable | max 10
-    count: 4
+    count: 6
     description: "Use a complex XPath expression (e.g. //div[@class='content']//a[contains(@href,'profile')])"
 
   textarea:                  # 1 pt | once
-    done: false
+    done: true
     description: "Fill or read the content of a textarea element"
 
   dropdown:                  # 2 pts | once
-    done: false
+    done: true
     description: "Select an option from a drop-down (using Select class or similar)"
     link: "https://www.selenium.dev/documentation/webdriver/support_features/select_lists/"
 
   radio_button:              # 1 pt | once
-    done: false
+    done: true
     description: "Select or verify a radio button"
 
   at_least_4_classes:        # 3 pts | once
@@ -115,7 +115,7 @@ basic:
     link: "https://www.selenium.dev/documentation/webdriver/waits/"
 
   page_title:                # 1 pt | once
-    done: false
+    done: true
     description: "Read and verify the page title using getTitle()"
 
   page_object_pattern:       # 3 pts | once
@@ -136,7 +136,7 @@ basic:
 # ----------------------------------------------------------
 advanced:
   webdriver_config:          # 4 pts | once
-    done: false
+    done: true
     description: "Configure WebDriver with custom options (e.g. ChromeOptions, window size, user agent)"
     link: "https://www.selenium.dev/documentation/webdriver/drivers/options/"
 
